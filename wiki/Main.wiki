@@ -1,0 +1,10 @@
+#summary Start here.
+
+Welcome to the *as3-universal-analytics* project.
+
+TODO
+
+
+== Misc ==
+
+[http://code.google.com/p/as3-universal-analytics/w/list list all the wiki pages]
