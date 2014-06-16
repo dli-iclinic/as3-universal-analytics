@@ -44,5 +44,26 @@ In that case, if you use 2 different Client ID, you can not follow the flow of t
 At the opposite, if you re-use the same Client ID, you can see where and when the used navigate insde the SWF etc.
 
 
+TODO
+{{{
+//code to generate the UUID
+}}}
+
+TODO
+{{{
+//code save/load the UUID from a shared object
+}}}
 
 
+== Well Formated Payload Data ==
+
+It is all about following the rules of the [https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters Measurement Protocol Parameter Reference] but most importantly how to encode them correctly.
+
+It is described here [https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#encoding URL Encoding Values] with the following
+----
+All values sent to Google Analytics must be both UTF-8 and [http://en.wikipedia.org/wiki/Percent-encoding URL Encoded]. To send the key `dp` with the value `/my page €`, you will first need to make sure this is UTF-8 encoded, then url encoded, resulting in the final string:
+{{{
+dp=%2Fmy%20page%20%E2%82%AC
+}}}
+If any of the characters are encoded incorrectly, they will be replaced with the unicode replacement character `xFFFD`.
+----
