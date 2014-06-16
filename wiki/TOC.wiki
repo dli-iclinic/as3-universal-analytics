@@ -2,5 +2,6 @@
   * [Users Users]
   * [Developers Developers]
   * Documentation
+      * [SimplestTracker The simplest possible Tracker]
       * [FAQ FAQ]
   * [Downloads Downloads]
