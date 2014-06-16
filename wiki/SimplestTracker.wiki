@@ -87,6 +87,35 @@ var payload:String = "";
 
 A longer example would be
 {{{
+var trackingID:String = "UA-123456-0";
+var clientID:String = generateUUID();
+
 var payload:Array = [];
-   payload.push( "dp=" + encodeURIComponent( "/my page €" ) );
+    payload.push( "v=1" );
+    payload.push( "tid=" + trackingID );
+    payload.push( "cid=" + clientID );
+    payload.push( "t=pageview" );
+    payload.push( "dh=mydomain.com" );
+    payload.push( "dp=" + encodeURIComponent( "/my page €" ) );
+    payload.push( "dt=" + encodeURIComponent( "My Page Title with €" ) );
+
+var data:String = payload.join( "&" );
 }}}
+
+
+== An HTTP POST or GET ==
+
+In !ActionScript 3.0 this will involve using a `URLRequest` with a `Loader` or a `URLLoader`.
+
+To keep things short and compatbile everywhere I would advise to use a `Loader` class (as with the `URLLoader` you can encounter security restriction) and send a *GET* request.
+
+
+{{{
+var request:URLRequest = new URLRequest();
+    request.method = URLRequestMethod.GET;
+    request.data = payload;
+
+var loader:Loader = new Loader();
+    loader.load( request );
+}}}
+
