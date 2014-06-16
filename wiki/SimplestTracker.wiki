@@ -82,6 +82,11 @@ To keep a long story short, you really need to follow [http://www.ietf.org/rfc/r
 For example, you would do that
 {{{
 var payload:String = "";
-      payload += "dp=" + encodeURIComponent( "/my page €" );
+    payload += "dp=" + encodeURIComponent( "/my page €" );
 }}}
 
+A longer example would be
+{{{
+var payload:Array = [];
+   payload.push( "dp=" + encodeURIComponent( "/my page €" ) );
+}}}
