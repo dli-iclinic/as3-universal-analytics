@@ -5,6 +5,27 @@ Welcome to the *as3-universal-analytics* project.
 TODO
 
 
+== Minimum Requirement ==
+
+This library require *Flash Player 11.0*  or *AIR 3.0* (both released on 04/10/2011).
+
+It is possible to backport the library for earlier versions (FP 10.0 and AIR 2.0),<br>
+you will need to provide your own implementation of<br>
+`com.google.analytics.utils.generateUUID()`.
+
+== Legacy ==
+
+If you absolutely need support for *Flash Player 9.0*<br>
+you can use the library [https://code.google.com/p/gaforflash/ gaforflash], which is now considered legacy (old!).
+
+
+== Non Goals ==
+
+There is no plan to support a JavaScript Bridge with `analytics.js`.
+
+It is out of question to port the library to ActionScript 2.0 (feel free to do it yourself).
+
+
 == Misc ==
 
 [http://code.google.com/p/as3-universal-analytics/w/list list all the wiki pages]
