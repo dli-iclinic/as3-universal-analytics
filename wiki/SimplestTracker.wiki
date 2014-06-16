@@ -67,3 +67,16 @@ dp=%2Fmy%20page%20%E2%82%AC
 }}}
 If any of the characters are encoded incorrectly, they will be replaced with the unicode replacement character `xFFFD`.
 ----
+
+And then come ECMAScript history and ActionScript 3.0 ...
+
+In AS3 you have basically 3 different way to URL Encode stuff
+  - [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/package.html#escape() `escape()`]
+  - `encodeURI()`
+  - `encodeURIComponent()`
+
+and the nuance between them is subtle
+
+
+
+
