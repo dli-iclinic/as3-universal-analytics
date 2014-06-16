@@ -4,13 +4,45 @@
 
 In the past, we had people complaining about the size of a library of *30KB* (which is completely ridiculous IMHO), and so to prevent such complains or to give you an overview of the minimun needed to send data to Google Analytcis servers, we will describe a step by step here.
 
+
 == The Measurement Protocol ==
 
 As you can see in the [https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide Measurement Protocol Developer Guide], to send data to Google Analytcis servers you need 3 things
 
+  # a client ID
   # well formated payload data
   # an HTTP POST or GET
-  # follow the rules of the protocol
 
 
-== Details ==
+
+== The Client ID ==
+
+As explained in [https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#required Required Values For All Hits], you need 4 required values each time you send a request, all the rest is optional, but if one of those 4 is missing your request will fail.
+
+The *protocol version* is a piece of cake, just use `v=1`.
+
+The *Tracking ID* is quite easy too, you get it from the Google Analytics panel, something following this format `UA-XXXX-Y`.
+
+The *Hit Type* is one of the following strings: `pageview`, `screenview`, `event`, etc.<br>
+(documented here [https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#t Hit Type]).
+
+So, the real hard parameter to manage is the *Client ID*<br>
+(again documented here [https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid Client ID]).
+
+The problem is not really to generate that client ID but to save it and reuse it.
+
+If for example you generate a new Client ID for each requests,<br>
+the Google Analytics servers will see a different user for each request,<br>
+something you really don't want.
+
+Another example would be tracking the same user from 2 different environments:<br>
+on a web page the user would be tracked by `analytics.js`<br>
+and within that page a SWF file using `analytics.swc` would track also that user.
+
+In that case, if you use 2 different Client ID, you can not follow the flow of the user browsing.
+
+At the opposite, if you re-use the same Client ID, you can see where and when the used navigate insde the SWF etc.
+
+
+
+
