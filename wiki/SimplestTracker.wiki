@@ -71,8 +71,8 @@ If any of the characters are encoded incorrectly, they will be replaced with the
 And then come ECMAScript history and ActionScript 3.0 ...
 
 In AS3 you have basically 3 different way to URL Encode stuff
-  * the [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/package.html#escape() escape()] function
-  * the `encodeURI()` function
-  * the `encodeURIComponent()` function
+  * the [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/package.html#escape() escape()] function<br>Converts the parameter to a string and encodes it in a URL-encoded format, where most nonalphanumeric characters are replaced with `%` hexadecimal sequences. 
+  * the [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/package.html#encodeURI() encodeURI()] function<br>Encodes a string into a valid URI (Uniform Resource Identifier).<br>Converts a complete URI into a string in which all characters are encoded as UTF-8 escape sequences unless a character belongs to a small group of basic characters.
+  * the [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/package.html#encodeURIComponent() encodeURIComponent()] function<br>Encodes a string into a valid URI component.<br>Converts a substring of a URI into a string in which all characters are encoded as UTF-8 escape sequences unless a character belongs to a very small group of basic characters.
 
-and the nuance between them is subtle
+and the nuance between them is subtle ...
