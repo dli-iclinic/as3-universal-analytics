@@ -1,0 +1,16 @@
+#summary The simplest possible Tracker.
+
+== Introduction ==
+
+In the past, we had people complaining about the size of a library of *30KB* (which is completely ridiculous IMHO), and so to prevent such complains or to give you an overview of the minimun needed to send data to Google Analytcis servers, we will describe a step by step here.
+
+== The Measurement Protocol ==
+
+As you can see in the [https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide Measurement Protocol Developer Guide], to send data to Google Analytcis servers you need 3 things
+
+  # well formated payload data
+  # an HTTP POST or GET
+  # follow the rules of the protocol
+
+
+== Details ==
