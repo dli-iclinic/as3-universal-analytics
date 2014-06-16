@@ -21,7 +21,7 @@ you can use the library [https://code.google.com/p/gaforflash/ gaforflash], whic
 
 == Non Goals ==
 
-There is no plan to support a JavaScript Bridge with `analytics.js`.
+There is no plan to support a !JavaScript Bridge with {{{analytics.js}}}.
 
 It is out of question to port the library to ActionScript 2.0 (feel free to do it yourself).
 
