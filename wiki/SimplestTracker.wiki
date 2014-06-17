@@ -7,7 +7,8 @@ In the past, we had people complaining about the size of a library of *30KB* (wh
 
 == The Measurement Protocol ==
 
-As you can see in the [https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide Measurement Protocol Developer Guide], to send data to Google Analytcis servers you need 3 things
+As you can see in the [https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide Measurement Protocol Developer Guide],<br
+to send data to Google Analytcis servers you need 3 things
 
   # a client ID
   # well formated payload data
@@ -17,7 +18,8 @@ As you can see in the [https://developers.google.com/analytics/devguides/collect
 
 == The Client ID ==
 
-As explained in [https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#required Required Values For All Hits], you need 4 required values each time you send a request, all the rest is optional, but if one of those 4 is missing your request will fail.
+As explained in [https://developers.google.com/analytics/devguides/collection/protocol/v1/reference#required Required Values For All Hits], you need 4 required values each time you send a request,<br>
+all the rest is optional, but if one of those 4 is missing your request will fail.
 
 The *protocol version* is a piece of cake, just use `v=1`.
 
@@ -41,8 +43,10 @@ and within that page a SWF file using `analytics.swc` would track also that user
 
 In that case, if you use 2 different Client ID, you can not follow the flow of the user browsing.
 
-At the opposite, if you re-use the same Client ID, you can see where and when the used navigate insde the SWF etc.
+At the opposite, if you re-use the same Client ID, you can see where and when the user navigate from the HTML to the SWF (for example) etc.
 
+If in an HTML environment you would use Cookies,<br>
+in a Flash environment we advise you to use the !SharedObject class
 {{{
 var so:SharedObject = SharedObject.getLocal( "_ga" );
 var cid:String;
@@ -57,7 +61,72 @@ else
 {
     cid = so.data.clientid; //found so we reuse it
 }
+}}}
 
+For the Client ID generation, the best method we know of is the implementation you can find here<br>
+`com.google.analytics.utils.generateUUID()`.
+
+Why best ?
+  * it reuses [http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/crypto/package.html#generateRandomBytes() flash.crypto.generateRandomBytes] which<br>"The random sequence is generated using cryptographically strong functions provided by the operating system."
+  * it generates a valid UUID v4
+  * it follow to the letter the [https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid Measurement Protocol Client ID] documentation<br>"The value of this field should be a random UUID (version 4) as described in [http://www.ietf.org/rfc/rfc4122.txt http://www.ietf.org/rfc/rfc4122.txt]"
+
+That said, you could use different way to generate this Client ID.
+
+Basically, it just need to be a random sequence to anonymously identify a particular user, device or browser instance<br>
+we could then reuse what we were doing for *gaforflash*:
+{{{
+function generate32bitRandom():int
+{
+    return Math.round( Math.random() * 0x7fffffff );
+}
+
+function generateHash( input:String ):int
+{
+    var hash:int      = 1;
+    var leftMost7:int = 0;
+    var pos:int;
+    var current:int;
+    
+    if(input != null && input != "")
+    {
+        hash = 0;
+        
+        for( pos = input.length - 1 ; pos >= 0 ; pos-- )
+        {
+            current   = input.charCodeAt(pos);
+            hash      = ((hash << 6) & 0xfffffff) + current + (current << 14);
+            leftMost7 = hash & 0xfe00000;
+            
+            if(leftMost7 != 0)
+            {
+                hash ^= leftMost7 >> 21;
+            }
+        }
+    }
+    
+    return hash;
+}
+
+function generateUserDataHash():Number
+{
+    var data:String = "";
+        data += Capabilities.cpuArchitecture;
+        data += Capabilities.language;
+        data += Capabilities.manufacturer;
+        data += Capabilities.os;
+        data += Capabilities.screenColor;
+        data += Capabilities.screenDPI;
+        data += Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY;
+
+    return generateHash( data );
+}
+
+function getClientID():Number
+{
+    var cid:Number = (generate32bitRandom() ^ generateUserDataHash()) * 0x7fffffff;
+    return cid;
+}
 }}}
 
 
