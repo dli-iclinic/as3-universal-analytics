@@ -488,3 +488,12 @@ the request was accepted
 onLoaderComplete()
 done
 }}}
+
+
+== Conclusion ==
+
+What we have described above is the strict minimum to "get it work", it is not something we plan to support or encourage.
+
+If you use the code above, instead of using the library, we will not help or support you in anyway, eg. *you are on your own*.
+
+It is our opinion that a library would be better suited to your needs (whatever the size this library is).
